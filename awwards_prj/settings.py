@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'awward.apps.AwwardConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
