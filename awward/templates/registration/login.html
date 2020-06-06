@@ -1,0 +1,51 @@
+{%extends "registration/base.html"%} 
+{% load bootstrap4 %}
+{% block content %}
+<head>
+  <title>Awwards</title> 
+</head>
+<div class="container">
+  <div class="row" style="padding-top: 5%;" >
+    <!-- Empty div -->
+    
+    <div class="col-md-6">
+      <img src="../../../media/gram/iphone.jpg" alt="" style="width: 770px; height: 514px; float: left; " >
+    </div>
+    <div class="col-md-4">
+      {% if form.errors %}
+        <p> Some Information Might be Incorrect </p>
+      {% endif %}
+      <div class="panel panel-default" style="border: solid #bebebe 2px; padding: 40px; " >
+
+        <div class="panel-heading">
+          <h3 class="text-center">Gram</h3><br>
+        </div>
+        <div class="panel-body">
+
+          <form  action="/accounts/login/" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary btn-sm" value="Sign In">
+              <hr>
+              <br>
+              <p style="text-align: right;" >Don't have an account?</p>
+              <a class="btn btn-outline-success" href="/accounts/register/" style="float: right;" >Register</a>
+              <br><br>
+            </div>
+
+            <input type="hidden" name="next" value="{{next}}">
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- empty div -->
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+{% endblock %}
