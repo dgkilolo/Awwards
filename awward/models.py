@@ -11,10 +11,20 @@ class Project(models.Model):
   description = models.TextField()
   link = models.URLField()
 
+  def save_project(self):
+    self.save()
+  def delete_project(self):
+    Project.objects.filter(pk=self.id).delete()
+
 class Profile(models.Model):
   profile_pic = models.ImageField(upload_to='awward/')
   user = models.OneToOneField(User, on_delete = models.CASCADE)
   bio = models.TextField()
+
+  def save_profile(self):
+    self.save()
+  def delete_profile(self):
+    Profile.objects.filter(pk=self.id).delete()
 
   def __str__(self):
     return self.user.username 
