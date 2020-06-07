@@ -10,6 +10,7 @@ class Project(models.Model):
   image = models.ImageField(upload_to='awward/')
   description = models.TextField()
   link = models.URLField()
+  profile = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def save_project(self):
     self.save()
@@ -19,7 +20,7 @@ class Project(models.Model):
 class Profile(models.Model):
   profile_pic = models.ImageField(upload_to='awward/')
   user = models.OneToOneField(User, on_delete = models.CASCADE)
-  bio = models.TextField()
+  bio = models.TextField(blank=True)
 
   def save_profile(self):
     self.save()
