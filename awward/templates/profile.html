@@ -19,6 +19,12 @@
         {% else %}
         <p>Hey there, I am an Awwards user</p>
         {% endif %}
+        <h5>Contact:</h5>
+        {% if profile.contact%}
+        <p>{{profile.contact}}</p>
+        {% else %}
+        <p>07********</p>
+        {% endif %}
         <button class = "btn btn-light btn-lg"><a style="color: black;"href="{% url 'edit_profile' %}">Edit Profile</a></button>
 
     </div></div>
@@ -27,6 +33,7 @@
     <hr>
     <div id="image-list">
         {% if projects %}
+        <div class="row">
         {% for project in projects %}
         <div class="col-xs-6 col-md-4 col-sm-6 col-lg-4">
           <h2>{{project.title}}</h2>
@@ -36,6 +43,7 @@
           </a>
         </div>
         {% endfor %}
+        </div>
         {% else %}
         <p class= "text-center">No images posted yet</p>
         {% endif %}
