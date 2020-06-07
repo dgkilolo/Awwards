@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Project,Profile
 from .forms import NewProjectForm
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import ProjectsSerializer
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -33,3 +36,9 @@ def new_project(request):
   else:
     form = NewProjectForm()
   return render(request, 'new_project.html', {"form":form} )
+
+class ProjectsList(APIView):
+  def get(self, request, format=None):
+    all_projects = Project.objects.all()
+    serializers = ProjectsSerializer(all_projects, many=True)
+    return Response(serializers.data)
