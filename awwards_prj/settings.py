@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'awward.apps.AwwardConfig',
     'bootstrap4',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
