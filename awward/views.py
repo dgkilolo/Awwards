@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Project,Profile
-from .forms import NewProjectForm
+from .forms import NewProjectForm,EditProfileForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProjectsSerializer,ProfileSerializer
@@ -53,7 +53,27 @@ class ProfileList(APIView):
 def profile(request):
     title = "Profile"
     current_user = request.user
-    profile = Profile.objects.get(user =current_user)
+    profile = Profile.objects.get(user=current_user)
     projects = Project.get_profile_projects(current_user)
     posts = projects.count()
     return render(request, 'profile.html', {"profile" : profile, 'projects':projects, "posts":posts } )
+
+def edit_profile(request):
+  '''
+  Edits profile picture and bio
+  '''
+  current_user = request.user
+  if request.method == "POST":
+    form = EditProfileForm(request.POST, request.FILES)
+    if form.is_valid():
+      profile_pic = form.cleaned_data['profile_pic']
+      bio  = form.cleaned_data['bio']
+
+      updated_profile = Profile.objects.get(user=current_user)
+      updated_profile.profile_pic = profile_pic
+      updated_profile.bio = bio
+      updated_profile.save()
+    return redirect('profile')
+  else:
+    form = EditProfileForm()
+  return render(request, 'edit_profile.html', {"form": form})
