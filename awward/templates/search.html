@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid" style="padding-top: 7%;" >
+
+  <div class="row">
+    {% if awward%}
+      <h2>Found {{ awward|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 articles for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if awward %}
+    {% for project in awward %}
+      <div class="col-sm-6 col-md-3">
+          <h3>{{project.title}}</h3>
+          <img src="{{project.image.url}}" alt="image" style="width: 200px; padding-bottom: 20px;" >
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

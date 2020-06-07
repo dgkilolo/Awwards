@@ -22,6 +22,11 @@ class Project(models.Model):
     projects = cls.objects.all()
     return projects
 
+  @classmethod
+  def search_by_title(cls,search_term):
+    projects = cls.objects.filter(title__icontains=search_term)
+    return projects
+
 class Profile(models.Model):
   profile_pic = models.ImageField(upload_to='awward/')
   user = models.OneToOneField(User, on_delete = models.CASCADE)
