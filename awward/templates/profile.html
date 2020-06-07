@@ -17,7 +17,7 @@
         {% if profile.bio%}
         <p>{{profile.bio}}</p>
         {% else %}
-        <p>Hey there, I am an Finsta-gram user</p>
+        <p>Hey there, I am an Awwards user</p>
         {% endif %}
         <button class = "btn btn-light btn-lg"><a style="color: black;"href="">Edit Profile</a></button>
 
@@ -29,8 +29,9 @@
         {% if projects %}
         {% for project in projects %}
         <div class="col-xs-6 col-md-4 col-sm-6 col-lg-4">
+          <h2>{{project.title}}</h2>
           <a href=""><img class="image img-responsive"
-            style="width:350px; height:350px;object-fit: cover;margin:5px; border:3px solid white" src="{{project.profile_pic.url}}"
+            style="width:250px; height:250px;object-fit: cover;margin:5px; border:3px solid white" src="{{project.image.url}}"
             alt="">
           </a>
         </div>

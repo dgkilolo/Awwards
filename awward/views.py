@@ -4,7 +4,7 @@ from .models import Project,Profile
 from .forms import NewProjectForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import ProjectsSerializer
+from .serializers import ProjectsSerializer,ProfileSerializer
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -42,6 +42,12 @@ class ProjectsList(APIView):
   def get(self, request, format=None):
     all_projects = Project.objects.all()
     serializers = ProjectsSerializer(all_projects, many=True)
+    return Response(serializers.data)
+
+class ProfileList(APIView):
+  def get(self, request, format=None):
+    all_profiles = Profile.objects.all()
+    serializers = ProfileSerializer(all_profiles, many=True)
     return Response(serializers.data)
 
 def profile(request):
