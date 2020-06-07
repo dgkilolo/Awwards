@@ -10,12 +10,17 @@ class Project(models.Model):
   image = models.ImageField(upload_to='awward/')
   description = models.TextField()
   link = models.URLField()
-  profile = models.ForeignKey(User, on_delete=models.CASCADE)
+  
 
   def save_project(self):
     self.save()
   def delete_project(self):
     Project.objects.filter(pk=self.id).delete()
+
+  @classmethod
+  def all_projects(cls):
+    projects = cls.objects.all()
+    return projects
 
 class Profile(models.Model):
   profile_pic = models.ImageField(upload_to='awward/')
