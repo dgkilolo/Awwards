@@ -10,7 +10,7 @@ from .serializers import ProjectsSerializer
 @login_required(login_url='/accounts/login/')
 def home(request):
     projects = Project.all_projects()
-    return render(request, 'home.html', {'projects':projects} )
+    return render(request, 'home.html', {"projects":projects} )
 
 def search_projects(request):
   if 'awward' in request.GET and request.GET["awward"]:
@@ -31,6 +31,7 @@ def new_project(request):
     form = NewProjectForm(request.POST, request.FILES)
     if form.is_valid():
       project = form.save(commit=False)
+      project.profile = current_user
       project.save()
     return redirect('home')
   else:
@@ -42,3 +43,11 @@ class ProjectsList(APIView):
     all_projects = Project.objects.all()
     serializers = ProjectsSerializer(all_projects, many=True)
     return Response(serializers.data)
+
+def profile(request):
+    title = "Profile"
+    current_user = request.user
+    profile = Profile.objects.get(user =current_user)
+    projects = Project.get_profile_projects(current_user)
+    posts = projects.count()
+    return render(request, 'profile.html', {"profile" : profile, 'projects':projects, "posts":posts } )
