@@ -7,11 +7,12 @@ from rest_framework.views import APIView
 from .serializers import ProjectsSerializer,ProfileSerializer
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
+
 def home(request):
     projects = Project.all_projects()
     return render(request, 'home.html', {"projects":projects} )
 
+@login_required(login_url='/accounts/login/')
 def search_projects(request):
   if 'awward' in request.GET and request.GET["awward"]:
     search_term = request.GET.get("awward")
@@ -50,6 +51,7 @@ class ProfileList(APIView):
     serializers = ProfileSerializer(all_profiles, many=True)
     return Response(serializers.data)
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
     title = "Profile"
     current_user = request.user
@@ -58,6 +60,7 @@ def profile(request):
     posts = projects.count()
     return render(request, 'profile.html', {"profile" : profile, 'projects':projects, "posts":posts } )
 
+@login_required(login_url='/accounts/login/')
 def edit_profile(request):
   '''
   Edits profile picture and bio
